@@ -1,11 +1,14 @@
+from dotenv import load_dotenv  # 用于加载环境变量
+
+load_dotenv()  # 加载.env文件中的环境变量
 # 加载电商财报数据
 from llama_index.core import SimpleDirectoryReader
 
 A_docs = SimpleDirectoryReader(
-    input_files=["08-llamaindex-RAG-agent\电商B-Third Quarter 2023 Results.pdf"]
+    input_files=["电商B-Third Quarter 2023 Results.pdf"]
 ).load_data()
 B_docs = SimpleDirectoryReader(
-    input_files=["08-llamaindex-RAG-agent\电商B-Third Quarter 2023 Results.pdf"]
+    input_files=["电商B-Third Quarter 2023 Results.pdf"]
 ).load_data()
 
 
@@ -24,15 +27,15 @@ B_index.storage_context.persist(persist_dir="./storage/B")
 # 从本地读取索引
 from llama_index.core import load_index_from_storage
 try:
-    storage_context = StorageContext.from_defaults(
+    storage_context_A = StorageContext.from_defaults(
         persist_dir="./storage/A"
     )
-    A_index = load_index_from_storage(storage_context)
+    A_index = load_index_from_storage(storage_context_A)
 
-    storage_context = StorageContext.from_defaults(
+    storage_context_B = StorageContext.from_defaults(
         persist_dir="./storage/B"
     )
-    B_index = load_index_from_storage(storage_context)
+    B_index = load_index_from_storage(storage_context_B)
 
     index_loaded = True
 except:
@@ -62,7 +65,7 @@ query_engine_tools = [
         metadata=ToolMetadata(
             name="B_Finance",
             description=(
-                "用于提供A公司的财务信息 "
+                "用于提供B公司的财务信息 "
             ),
         ),
     ),
@@ -71,7 +74,7 @@ query_engine_tools = [
 
 # 配置大模型
 from llama_index.llms.openai import OpenAI
-llm = OpenAI(model="gpt-3.5-turbo-0613")
+llm = OpenAI(model="gpt-4.1-2025-04-14")
 
 
 # 创建ReAct Agent

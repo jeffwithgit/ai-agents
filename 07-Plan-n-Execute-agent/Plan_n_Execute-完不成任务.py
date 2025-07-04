@@ -47,7 +47,8 @@ def schedule_delivery(order_id: int, delivery_date: str):
 tools = [check_inventory, calculate_price, schedule_delivery]
 
 # 设置大模型
-from langchain.chat_models import ChatOpenAI
+# from langchain.chat_models import ChatOpenAI
+from langchain_community.chat_models import ChatOpenAI
 model = ChatOpenAI(temperature=0)
 
 # 设置计划者和执行者
