@@ -1,6 +1,7 @@
 # 导入 OpenAI库
 from openai import OpenAI
-
+from dotenv import load_dotenv
+load_dotenv()
 # 创建 OpenAI客户端
 client = OpenAI()
 
@@ -18,3 +19,5 @@ response = client.chat.completions.create(
 
 # 打印响应
 print(response)
+# 只打印响应中的消息内容
+print(response.choices[0].message.content)

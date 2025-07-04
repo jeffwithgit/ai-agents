@@ -2,6 +2,8 @@
 from langchain_core.output_parsers import StrOutputParser # 用于解析输出结果为字符串
 from langchain_core.prompts import ChatPromptTemplate # 用于创建聊天提示模板
 from langchain_openai import ChatOpenAI # 用于调用OpenAI的GPT模型
+from dotenv import load_dotenv
+load_dotenv()
 
 # 创建一个聊天提示模板，其中{topic}是一个占位符，用于后续插入具体的话题
 prompt = ChatPromptTemplate.from_template("请讲一个关于 {topic} 的故事")
