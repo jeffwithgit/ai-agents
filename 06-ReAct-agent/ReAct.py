@@ -8,7 +8,8 @@ llm = ChatOpenAI(model='gpt-4-turbo-preview',
              temperature=0.5)
 
 # 设置工具
-from langchain.agents import load_tools
+# from langchain.agents import load_tools
+from langchain_community.agent_toolkits.load_tools import load_tools
 tools = load_tools(["serpapi", "llm-math"], llm=llm)
 
 # 设置提示模板
